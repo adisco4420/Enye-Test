@@ -1,46 +1,19 @@
 import React, { Component} from 'react';
 import './App.css';
-import ListUsers from './users/ListUsers';
+import ListUsers from './users/components/ListUsers';
 
 
 import { Layout, Menu, Button, Icon, Modal } from 'antd';
-import AddUser from './users/AddUser';
+import AddUser from './users/components/AddUser';
 
 const { Header, Content, Footer } = Layout;
-const data = [
-  {
-    key: '1',
-    firstName: 'John',
-    lastName: 'Ken',
-    birthday: new Date(1978, 12, 2).toDateString(),
-    age: 32,
-    hobby: 'Singing',
-  },
-  {
-    key: '2',
-    firstName: 'Jim',
-    lastName: 'Green',
-    birthday: new Date(1967, 4, 5).toDateString(),
-    age: 27,
-    hobby: 'Dancing',
-  },
-  {
-    key: '3',
-    firstName: 'Joe',
-    lastName: 'Black',
-    birthday: new Date(1990, 21, 12).toDateString(),
-    age: 43,
-    hobby: 'Coding',
-  },
-];
 class App extends Component {
   constructor(props) {
     super(props)
     this.child = React.createRef()
   }
   state = { 
-    visible: false,
-    users: [...data]
+    visible: false
    };
 
   showModal = () => {
@@ -53,22 +26,14 @@ class App extends Component {
     this.child.current.resetFields()
   };
 
-  handleCancel = e => {
+  handleCancel = () => {
     this.setState({visible: false});
-    console.log(this.child.current);
-    console.log(this.form);
-    
     this.child.current.resetFields()
-    
   };
-  handelAddUser = (user) => {
-    this.handleCancel();
-    const { users } = this.state
-    const key = (users.length + 1).toString();
-    let newUser = [...users];
-    newUser = newUser.concat({key, ...user});
-    this.setState({users: newUser})    
-  } 
+  handleClose = () => {
+    this.setState({visible: false});
+  }
+
   render() { 
     return (  
     <Layout className="layout">
@@ -91,7 +56,7 @@ class App extends Component {
     </Header>
     <Content className="content-layout">
       <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-        <ListUsers  users={this.state.users}/>
+        <ListUsers/>
       </div>
     </Content>
     <Modal
@@ -101,9 +66,8 @@ class App extends Component {
           onCancel={this.handleCancel}
         >
           <AddUser 
-          wrappedComponentRef={(form) => this.form = form} 
           ref={this.child} 
-          onAddUser={this.handelAddUser} />
+          onCancel={this.handleClose} />
         </Modal>
     <Footer style={{ textAlign: 'center' }}>Enye {new Date().getFullYear()} Created by Alabi Sodiq</Footer>
   </Layout>
