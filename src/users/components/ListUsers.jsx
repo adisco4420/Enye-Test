@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Table } from 'antd';
-import { useUsers } from '../UserListHooks'
+import { connect } from "react-redux";
+
 const columns = [
+  {
+    title: 'UserId',
+    dataIndex: 'userId',
+    key: 'userId',
+  },
     {
       title: 'First Name',
       dataIndex: 'firstName',
@@ -11,7 +17,7 @@ const columns = [
       title: 'Last Name',
       dataIndex: 'lastName',
       key: 'lastName',
-    },
+    }, 
     {
       title: 'BirthDay',
       dataIndex: 'birthday',
@@ -29,19 +35,43 @@ const columns = [
       },
 
   ];
-  
-const ListUsers = () => {
-  const { users } = useUsers();
-  return ( 
-    <div style={{overflowX: 'auto'}}>
-    <Table rowKey="id"  columns={columns} dataSource={users} /> 
-    </div>
-   );
+
+class ListUsers extends Component {
+  state = { 
+    users: []
+   }
+  componentDidMount() {    
+    // const newUsers = [];
+    // const allUsers = this.props.users;
+    // Object.keys(allUsers).map(field => {
+    //   newUsers.push(allUsers[field])
+    // })
+    // this.setState({users: newUsers || []})
+  }
+
+  render() { 
+    const newUsers = [];
+    const allUsers = this.props.users;
+    Object.keys(allUsers).map(field => {
+      newUsers.push(allUsers[field])
+    })
+
+    return ( 
+      <div style={{overflowX: 'auto'}}>
+      <Table rowKey="userId"  columns={columns} dataSource={newUsers} /> 
+      </div>
+     );
+  }
 }
- 
-export default ListUsers;
 
  
 
 
 
+const mapStateToProps  = state => {
+  return {
+    users: state.users.items
+  };
+};
+
+export default connect(mapStateToProps)(ListUsers);
