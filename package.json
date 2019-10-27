@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "antd": "^3.24.0",
+    "axios": "^0.19.0",
+    "firebase": "^7.2.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
+    "redux-saga": "^1.1.1",
     "reselect": "^4.0.0"
   },
   "scripts": {
