@@ -4,21 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { Provider } from "react-redux";
+import Store from "./users/Store";
 
-import rootReducer from './services/rootReducer';
-
-const middleware = [];
-
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(...middleware))
-);
 
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={Store}>
         <App />
     </Provider>, 
     document.getElementById('root')

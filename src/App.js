@@ -2,9 +2,10 @@ import React, { Component} from 'react';
 import './App.css';
 import ListUsers from './users/components/ListUsers';
 
-
 import { Layout, Menu, Button, Icon, Modal } from 'antd';
 import AddUser from './users/components/AddUser';
+
+
 
 const { Header, Content, Footer } = Layout;
 class App extends Component {
@@ -33,6 +34,8 @@ class App extends Component {
   handleClose = () => {
     this.setState({visible: false});
   }
+
+  
 
   render() { 
     return (  
